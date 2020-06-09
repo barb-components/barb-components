@@ -1,5 +1,8 @@
 {
-  "name": "barb-components",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "name": "@barb-components/barb-components",
   "version": "2.0.0",
   "main": "build/index.js",
   "module": "build/index.esm.js",
@@ -23,11 +26,12 @@
     "lint:styles": "stylelint --fix 'src/**/*.{css,scss}'",
     "prepare": "yarn compile",
     "pretest": "yarn compile",
-    "posttest": "yarn check"
+    "posttest": "yarn check",
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barb-components/barb-components.git"
+    "url": "git://github.com/barb-components/barb-components.git"
   },
   "keywords": [
     "Google Typescript Style",
