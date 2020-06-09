@@ -13,9 +13,11 @@ export default {
     {
       dir: 'build',
       format: 'es',
+      exports: 'named',
       sourcemap: true,
     },
   ],
+  preserveModules: true,
   plugins: [
     progress({clearLine: false}),
     peerDepsExternal(),
