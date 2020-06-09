@@ -13,7 +13,6 @@
   "licence": "MIT",
   "description": "React components with hooks.",
   "scripts": {
-    "barrel": "barrelsby -c barrelsby.config.json",
     "cosmos": "cosmos",
     "cosmos:export": "yarn clean && cosmos-export",
     "build": "yarn clean && rollup --config config/rollup.config.js",
@@ -58,7 +57,6 @@
     "@babel/helper-create-regexp-features-plugin": "^7.10.1",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
-    "@rollup/plugin-typescript": "^4.1.2",
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/react": "^10.2.1",
     "@types/faker": "^4.1.12",
@@ -72,7 +70,6 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
-    "barrelsby": "^2.2.0",
     "confusing-browser-globals": "^1.0.9",
     "copy-webpack-plugin": "^6.0.2",
     "css-loader": "^3.5.3",
