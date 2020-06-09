@@ -31,6 +31,10 @@ module.exports = config => {
         loader: require.resolve('awesome-typescript-loader'),
         options: {
           configFileName: 'tsconfig.json',
+          exclude: [
+            path.join(process.cwd(), 'build'),
+            path.join(process.cwd(), 'dist'),
+          ],
         },
       },
     ],

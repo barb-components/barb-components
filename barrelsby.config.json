@@ -1,0 +1,14 @@
+{
+  "directory": "./src",
+  "delete": true,
+  "location": "branch",
+  "singleQuotes": true,
+  "exclude": [
+    ".*\\.d.ts$",
+    ".*\\.types\\.ts$",
+    "jest\\.setup\\.ts",
+    ".*Fixture\\.tsx?$",
+    ".*\\.test\\.tsx?$",
+    ".*\\.fixture\\.tsx?$"
+  ]
+}
