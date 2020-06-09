@@ -1,0 +1,9 @@
+/* domine-regular - latin */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Domine'), local('Domine-Regular'),
+    url('/fonts/domine-v7-latin-regular.woff2') format('woff2'),
+    url('/fonts/domine-v7-latin-regular.woff') format('woff');
+}

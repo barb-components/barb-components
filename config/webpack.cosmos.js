@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const SRC_PATH = path.join(process.cwd(), 'src');
 
 module.exports = config => {
@@ -34,5 +35,14 @@ module.exports = config => {
       },
     ],
   });
+  config.plugins.push(
+    new CopyPlugin({
+      patterns: [
+        {from: path.join(SRC_PATH, '**/*.woff'), to: 'fonts'},
+        {from: path.join(SRC_PATH, '**/*.woff2'), to: 'fonts'},
+        {from: path.join(SRC_PATH, 'assets'), to: 'assets'},
+      ],
+    })
+  );
   return config;
 };
