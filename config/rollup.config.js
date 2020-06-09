@@ -3,8 +3,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import postcss from 'rollup-plugin-postcss';
 import progress from 'rollup-plugin-progress';
-import sass from 'rollup-plugin-sass';
 import typescript from 'rollup-plugin-typescript2';
 
 const packageJson = require('../package.json');
@@ -29,6 +29,11 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
+    postcss({
+      extract: false,
+      modules: true,
+      use: ['sass'],
+    }),
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfigOverride: {
@@ -40,7 +45,6 @@ export default {
         ],
       },
     }),
-    sass({insert: true}),
     copy({
       targets: [
         {
