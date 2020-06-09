@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './TestComponent.module.scss';
+import styles from './test-component.module.scss';
 import {TestComponentProps} from './TestComponent.types';
 
 const TestComponent: React.FC<TestComponentProps> = ({theme}) => {
@@ -26,7 +26,7 @@ const TestComponent: React.FC<TestComponentProps> = ({theme}) => {
       className={`${styles.testComponent} ${themeClass}`}
     >
       <h1>I'm the test component</h1>
-      <h2>Made with love by Barb Components</h2>
+      <p>Made with love by Barb Components</p>
     </div>
   );
 };

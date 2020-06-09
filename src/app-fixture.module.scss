@@ -1,0 +1,29 @@
+@import '~normalize.css';
+@import './scss/variables';
+@import './scss/fluid-type';
+@import './scss/moulten-leading';
+@import './scss/typography';
+html {
+  @include fluid-type($min-width, $max-width, $min-font, $max-font);
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $min-font * $min-line-height,
+    $max-font * $max-line-height
+  );
+  color: $ink;
+  @include body-font;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include heading-font;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+}
+a {
+  text-decoration: none;
+}

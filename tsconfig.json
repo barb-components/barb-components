@@ -16,8 +16,6 @@
     "node_modules",
     "build",
     "**/__mocks__/**/*",
-    "**/__snapshots__/**/*",
-    "**/*.fixture.*",
-    "**/*.test.*"
+    "**/__snapshots__/**/*"
   ]
 }

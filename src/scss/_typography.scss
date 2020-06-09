@@ -1,12 +1,102 @@
-$font-family: 'Avenir Next', Helvetica, Arial, sans-serif;
+@import './variables';
+@import './fluid-type';
+@import './moulten-leading';
+@import './fonts/montserrat';
+@import './fonts/domine';
 
-@mixin font-defaults {
-  font-family: $font-family;
+@mixin heading-font {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
 
-@mixin heading {
-  @include font-defaults;
+@mixin body-font {
+  font-family: 'Domine', serif;
+  font-weight: 400;
+}
 
-  font-size: 40px;
-  font-weight: bold;
+@mixin heading1 {
+  font-size: $mod_1 * $mod_1 * $mod_1 * 1rem;
+  @include fluid-type(
+    $min-width,
+    $max-width,
+    $mod_1 * $mod_1 * $mod_1 * $min-font,
+    $mod_2 * $mod_2 * $mod_2 * $max-font
+  );
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $mod_1 * $mod_1 * $mod_1 * $min-font * $min-line-height,
+    $mod_2 * $mod_2 * $mod_2 * $max-font * $max-line-height
+  );
+}
+@mixin heading2 {
+  font-size: $mod_1 * $mod_1 * 1rem;
+  @include fluid-type(
+    $min-width,
+    $max-width,
+    $mod_1 * $mod_1 * $min-font,
+    $mod_2 * $mod_2 * $max-font
+  );
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $mod_1 * $mod_1 * $min-font * $min-line-height,
+    $mod_2 * $mod_2 * $max-font * $max-line-height
+  );
+}
+@mixin heading3 {
+  font-size: $mod_1 * 1rem;
+  @include fluid-type(
+    $min-width,
+    $max-width,
+    $mod_1 * $min-font,
+    $mod_2 * $max-font
+  );
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $mod_1 * $min-font * $min-line-height,
+    $mod_2 * $max-font * $max-line-height
+  );
+}
+
+@mixin body-large {
+  font-size: $mod_1 * 1rem;
+  @include fluid-type(
+    $min-width,
+    $max-width,
+    $mod_1 * $min-font,
+    $mod_1 * $max-font
+  );
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $mod_1 * $min-font * $min-line-height,
+    $mod_1 * $max-font * $max-line-height
+  );
+}
+@mixin body {
+  font-size: $mod_1 * 1rem;
+  @include fluid-type($min-width, $max-width, $min-font, $max-font);
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $min-font * $min-line-height,
+    $max-font * $max-line-height
+  );
+}
+@mixin body-small {
+  font-size: 1rem / $mod_1;
+  @include fluid-type(
+    $min-width,
+    $max-width,
+    $min-font / $mod_1,
+    $min-font / $mod_1
+  );
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $min-font / $mod_1 * $min-line-height,
+    $max-font / $mod_1 * $max-line-height
+  );
 }

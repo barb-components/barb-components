@@ -1,4 +1,4 @@
-import './AppFixture.module.scss';
+import './app-fixture.module.scss';
 
 import React, {FC} from 'react';
 

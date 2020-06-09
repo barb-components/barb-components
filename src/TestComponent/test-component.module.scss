@@ -2,16 +2,24 @@
 @import '../scss/typography';
 
 .testComponent {
-  padding: 16px;
-  width: 360px;
+  padding: 1rem;
+  margin: 1rem auto;
+  width: 768px;
+  max-width: calc(100% - 4rem);
   text-align: center;
+  background-image: url('/assets/cherry-barb.svg');
+  background-position: center center;
+  background-size: contain;
+  background-blend-mode: soft-light;
+  background-repeat: no-repeat;
 
   color: $ink;
   background-color: $chalk;
   border: 1px solid $ink;
 
-  .heading {
-    @include heading;
+  @include body-large;
+  h1 {
+    @include heading2;
   }
 
   &.brand {
