@@ -3,7 +3,7 @@ import React, {FC, useCallback} from 'react';
 import styles from './carousel.module.scss';
 import {CarouselProps} from './Carousel.types';
 import Slide from './SlideComponent';
-import useCarousel from './use-carousel';
+import useCarousel from './useCarousel';
 
 const Carousel: FC<CarouselProps> = ({slides: _slides}) => {
   const {

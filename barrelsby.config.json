@@ -3,6 +3,7 @@
   "delete": true,
   "location": "branch",
   "singleQuotes": true,
+  "exportDefault": true,
   "exclude": [
     ".*\\.d.ts$",
     ".*\\.types\\.ts$",

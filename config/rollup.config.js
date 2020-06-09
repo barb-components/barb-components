@@ -14,13 +14,11 @@ export default {
   output: [
     {
       file: packageJson.main,
-      name: 'BarbComponents',
       format: 'cjs',
       sourcemap: true,
     },
     {
       file: packageJson.module,
-      name: 'BarbComponents',
       format: 'esm',
       sourcemap: true,
     },
@@ -30,6 +28,7 @@ export default {
     progress({clearLine: false}),
     peerDepsExternal(),
     resolve(),
+    commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfigOverride: {
@@ -41,7 +40,6 @@ export default {
         ],
       },
     }),
-    commonjs(),
     sass({insert: true}),
     copy({
       targets: [

@@ -5,7 +5,7 @@
   "name": "@barb-components/barb-components",
   "version": "2.0.4",
   "main": "build/index.js",
-  "module": "build/index.es.js",
+  "module": "build/index.esm.js",
   "files": [
     "build"
   ],
@@ -16,7 +16,7 @@
     "barrel": "barrelsby -c barrelsby.config.json",
     "cosmos": "cosmos",
     "cosmos:export": "yarn clean && cosmos-export",
-    "build": "yarn clean && yarn barrel && rollup --config config/rollup.config.js",
+    "build": "yarn clean && rollup --config config/rollup.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "gts clean",

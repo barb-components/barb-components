@@ -1,4 +1,4 @@
-import {CarouselState} from './use-carousel';
+import {CarouselState} from './useCarousel';
 
 export const getThreshold = (target: EventTarget): number => {
   const width = (target as HTMLElement).clientWidth;
@@ -20,3 +20,5 @@ export const stateReducer = (
   ...oldState,
   ...newState,
 });
+
+export default {getThreshold, isForwards, stateReducer};
