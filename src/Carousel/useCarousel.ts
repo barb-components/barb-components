@@ -9,22 +9,12 @@ import {
 import {SwipeableHandlers, useSwipeable} from 'react-swipeable';
 
 import styles from './carousel.module.scss';
-import {CarouselSlideProps} from './Carousel.types';
+import {
+  CarouselAction,
+  CarouselSlideProps,
+  CarouselState,
+} from './Carousel.types';
 import {getThreshold, isForwards, stateReducer} from './helpers';
-
-export type CarouselState = {
-  current: number;
-  offset: number;
-  bounce: boolean;
-  slides: CarouselSlideProps[];
-  slidingClass: string;
-  autoPlay: boolean;
-};
-export type CarouselAction = {
-  action: 'prev' | 'next' | 'jump' | 'autoPlay';
-  next?: number;
-  autoPlay?: boolean;
-};
 
 const useCarousel = (
   _slides: CarouselSlideProps[]

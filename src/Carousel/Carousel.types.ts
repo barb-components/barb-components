@@ -13,3 +13,16 @@ export type ImageProps = {
   className?: string;
   imageClassName?: string;
 };
+export type CarouselState = {
+  current: number;
+  offset: number;
+  bounce: boolean;
+  slides: CarouselSlideProps[];
+  slidingClass: string;
+  autoPlay: boolean;
+};
+export type CarouselAction = {
+  action: 'prev' | 'next' | 'jump' | 'autoPlay';
+  next?: number;
+  autoPlay?: boolean;
+};
