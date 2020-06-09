@@ -1,0 +1,23 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "build",
+    "declarationDir": "build",
+    "module": "esnext",
+    "lib": ["dom"],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "**/__mocks__/**/*",
+    "**/__snapshots__/**/*",
+    "**/*.fixture.*",
+    "**/*.test.*"
+  ]
+}
