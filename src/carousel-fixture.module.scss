@@ -70,3 +70,42 @@
     }
   }
 }
+
+.customArrowsNav {
+  &#{&} {
+    button {
+      background-color: transparent;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    ul li {
+      background-color: $grey01;
+
+      &.active {
+        background-color: lighten($darkAccent, 10%);
+      }
+      &:hover {
+        background-color: $darkAccent;
+      }
+    }
+  }
+}
+.buttons {
+  svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    fill: $chalk;
+    padding: calc(0.5rem - 12px);
+    background-color: lighten($darkAccent, 10%);
+    border-radius: 100%;
+  }
+  &:hover {
+    background-color: transparent;
+    svg {
+      background-color: $darkAccent;
+    }
+  }
+}

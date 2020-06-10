@@ -13,7 +13,7 @@
   "licence": "MIT",
   "description": "React components with hooks.",
   "scripts": {
-    "cosmos": "yarn cleen && cosmos",
+    "cosmos": "yarn clean && cosmos",
     "cosmos:export": "yarn clean && cosmos-export",
     "build": "yarn clean && rollup --config config/rollup.config.js",
     "test": "yarn clean && jest",
@@ -60,6 +60,7 @@
     "@babel/helper-create-regexp-features-plugin": "^7.10.1",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
+    "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/react": "^10.2.1",
     "@types/faker": "^4.1.12",
@@ -114,6 +115,7 @@
     "stylelint-prettier": "^1.1.2",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5",
+    "url-loader": "^4.1.0",
     "webpack": "^4.43.0"
   },
   "pre-commit": [
