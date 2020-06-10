@@ -3,7 +3,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "name": "@barb-components/barb-components",
-  "version": "3.0.1",
+  "version": "0.0.0",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "files": [
@@ -16,8 +16,8 @@
     "cosmos": "yarn cleen && cosmos",
     "cosmos:export": "yarn clean && cosmos-export",
     "build": "yarn clean && rollup --config config/rollup.config.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "yarn clean && jest",
+    "test:watch": "yarn clean && jest --watch",
     "clean": "gts clean",
     "check": "gts check",
     "compile": "gts clean && tsc",
@@ -28,8 +28,8 @@
     "prepare": "yarn compile",
     "pretest": "yarn compile",
     "posttest": "yarn check",
-    "preversion": "yarn lint && yarn test",
-    "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\""
+    "preversion": "yarn lint && yarn test && yarn build",
+    "postversion": "git push --tags && git push"
   },
   "repository": {
     "type": "git",
