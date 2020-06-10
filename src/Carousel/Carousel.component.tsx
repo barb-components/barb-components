@@ -10,6 +10,8 @@ const Carousel: FC<CarouselProps> = ({
   slides: _slides,
   autoPlay = true,
   showNav = true,
+  prevButton,
+  nextButton,
   carouselClassName = '',
   trackClassName = '',
   slideClassName = '',
@@ -56,6 +58,8 @@ const Carousel: FC<CarouselProps> = ({
         <CarouselNav
           slides={_slides}
           current={current}
+          prevButton={prevButton}
+          nextButton={nextButton}
           handleNavClick={handleNavClick}
           className={navClassName}
           activeClassName={activeClassName}

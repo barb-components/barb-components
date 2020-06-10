@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import {ButtonHTMLAttributes, FC, ReactNode} from 'react';
 export type CarouselSlideProps = {
   uuid: string;
   slide: ReactNode;
@@ -7,6 +7,8 @@ export type CarouselProps = {
   slides: CarouselSlideProps[];
   autoPlay?: boolean;
   showNav?: boolean;
+  prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+  nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
   carouselClassName?: string;
   trackClassName?: string;
   slideClassName?: string;
@@ -49,4 +51,6 @@ export type CarouselNavProps = {
   handleNavClick: (action: CarouselAction) => void;
   className?: string;
   activeClassName: string;
+  prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+  nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
 };
