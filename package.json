@@ -3,7 +3,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "name": "@barb-components/barb-components",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "files": [
