@@ -19,7 +19,7 @@
 
   @include body-large;
   h1 {
-    @include heading2;
+    @include heading;
   }
 
   &.brand {

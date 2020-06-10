@@ -1,51 +1,9 @@
-@import '../scss/variables';
-@import '../scss/typography';
 .slide {
+  position: relative;
   overflow: hidden;
   width: calc((100% - 2rem) / 3);
-  position: relative;
-  background: rgba($brand, 0.5);
-  .image {
-    display: block;
-    height: 0;
-    width: 100%;
-    padding-bottom: 62.5%;
-    overflow: hidden;
-    object-fit: cover;
-    mix-blend-mode: darken;
-  }
-  section {
-    padding: 1rem;
-    @include body;
-    h1 {
-      @include heading3;
-    }
+  height: 0;
+  padding-bottom: calc((100% - 2rem) / 3 * 0.625);
 
-    @media (min-width: 1024px) {
-      padding: 2rem;
-      @include body-large;
-      h1 {
-        @include heading1;
-      }
-    }
-
-    :first-child {
-      margin-top: 0;
-    }
-    :last-child {
-      margin-bottom: 0;
-    }
-    position: absolute;
-
-    z-index: 1;
-    color: lighten($lightAccent, 10%);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    mix-blend-mode: screen;
-  }
+  background-color: grey;
 }

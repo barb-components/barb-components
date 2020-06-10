@@ -13,7 +13,7 @@
   "licence": "MIT",
   "description": "React components with hooks.",
   "scripts": {
-    "cosmos": "cosmos",
+    "cosmos": "yarn cleen && cosmos",
     "cosmos:export": "yarn clean && cosmos-export",
     "build": "yarn clean && rollup --config config/rollup.config.js",
     "test": "jest",
@@ -28,7 +28,9 @@
     "prepare": "yarn compile",
     "pretest": "yarn compile",
     "posttest": "yarn check",
-    "prepublishOnly": "yarn clean && yarn build"
+    "preversion": "yarn lint && yarn test",
+    "prepublishOnly": "yarn clean && yarn build",
+    "postversion": "git push --tags && yarn publish . --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-import {CarouselState} from './Carousel.types';
+import {CarouselState} from './carousel.types';
 
 export const getThreshold = (target: EventTarget): number => {
   const width = (target as HTMLElement).clientWidth;
