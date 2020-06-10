@@ -3,7 +3,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "name": "@barb-components/barb-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "files": [
@@ -28,7 +28,9 @@
     "prepare": "yarn compile",
     "pretest": "yarn compile",
     "posttest": "yarn check",
-    "preversion": "yarn lint && yarn test && yarn build",
+    "preversion": "yarn lint && yarn test",
+    "prepack": "yarn build",
+    "postpack": "yarn clean",
     "postversion": "git push --tags && git push"
   },
   "repository": {
