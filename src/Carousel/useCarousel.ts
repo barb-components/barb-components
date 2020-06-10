@@ -13,11 +13,12 @@ import {
   CarouselAction,
   CarouselSlideProps,
   CarouselState,
-} from './Carousel.types';
+} from './carousel.types';
 import {getThreshold, isForwards, stateReducer} from './helpers';
 
 const useCarousel = (
-  _slides: CarouselSlideProps[]
+  _slides: CarouselSlideProps[],
+  autoPlay: boolean
 ): {
   current: number;
   offset: number;
@@ -59,19 +60,19 @@ const useCarousel = (
       bounce: false,
       slides: makeSlides(0),
       slidingClass: '',
-      autoPlay: true,
+      play: true,
     }),
     [makeSlides]
   );
   const [state, setState] = useReducer<
     Reducer<CarouselState, Partial<CarouselState>>
   >(stateReducer, initialState);
-  const {current, offset, slides, bounce, slidingClass, autoPlay} = state;
+  const {current, offset, slides, bounce, slidingClass, play} = state;
 
   // Calculate Next Slide
   const nextSlideReducer: Reducer<number, CarouselAction> = (
     last,
-    {action, next = 0, autoPlay = false}
+    {action, next = 0, play = false}
   ) => {
     const [one, two, three] = slides || [];
 
@@ -87,8 +88,8 @@ const useCarousel = (
             : [_slides[next], two, three],
         });
         return next;
-      case 'autoPlay':
-        setState({autoPlay});
+      case 'play':
+        setState({play});
         return last;
     }
   };
@@ -139,13 +140,13 @@ const useCarousel = (
 
   // Auto Play Effect
   useEffect(() => {
-    if (!autoPlay) {
+    if (!autoPlay || !play) {
       return;
     }
 
     const id = setTimeout(() => dispatch({action: 'next'}), 2000);
     return () => clearTimeout(id);
-  }, [autoPlay, current]);
+  }, [autoPlay, play, current]);
 
   // Swipe Handler
   const swipeHandlers = useSwipeable({

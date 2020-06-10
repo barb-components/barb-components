@@ -13,6 +13,7 @@ html {
   );
   color: $ink;
   @include body-font;
+  @include body;
 }
 h1,
 h2,
@@ -21,6 +22,7 @@ h4,
 h5,
 h6 {
   @include heading-font;
+  @include heading;
   margin-top: 1.2em;
   margin-bottom: 0.6em;
 }

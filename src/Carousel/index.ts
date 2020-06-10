@@ -1,5 +1,5 @@
-export {default as Carousel} from './CarouselComponent';
-export {default as Image} from './ImageComponent';
-export {default as Slide} from './SlideComponent';
+export {default as Carousel} from './Carousel.component';
+export {default as Slide} from './Slide.component';
+export {default as SlideContent} from './SlideContent.component';
+export {default as SlideImage} from './SlideImage.component';
 export {default as useCarousel} from './useCarousel';
-export * from './helpers';

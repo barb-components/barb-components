@@ -1,0 +1,72 @@
+@import './scss/variables';
+@import './scss/typography';
+
+.blankCarouselSlide {
+  > * {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: bold;
+  }
+}
+.slideContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.nav {
+  &#{&} {
+    button {
+      @include heading-font;
+      color: $chalk;
+      background-color: lighten($darkAccent, 10%);
+
+      &:hover {
+        background-color: $darkAccent;
+      }
+    }
+
+    ul li {
+      background-color: $grey01;
+
+      &.active {
+        background-color: lighten($darkAccent, 10%);
+      }
+      &:hover {
+        background-color: $darkAccent;
+      }
+    }
+  }
+}
+
+.contentSlide {
+  background: rgba($brand, 0.5);
+}
+
+.image {
+  mix-blend-mode: darken;
+}
+
+.content {
+  color: lighten($lightAccent, 10%);
+
+  mix-blend-mode: screen;
+
+  @include body;
+  h1 {
+    @include heading-small;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
+    @include body-large;
+    h1 {
+      @include heading-large;
+    }
+  }
+}

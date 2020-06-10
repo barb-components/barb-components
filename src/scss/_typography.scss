@@ -14,7 +14,7 @@
   font-weight: 400;
 }
 
-@mixin heading1 {
+@mixin heading-large {
   font-size: $mod_1 * $mod_1 * $mod_1 * 1rem;
   @include fluid-type(
     $min-width,
@@ -29,7 +29,7 @@
     $mod_2 * $mod_2 * $mod_2 * $max-font * $max-line-height
   );
 }
-@mixin heading2 {
+@mixin heading {
   font-size: $mod_1 * $mod_1 * 1rem;
   @include fluid-type(
     $min-width,
@@ -44,7 +44,7 @@
     $mod_2 * $mod_2 * $max-font * $max-line-height
   );
 }
-@mixin heading3 {
+@mixin heading-small {
   font-size: $mod_1 * 1rem;
   @include fluid-type(
     $min-width,
