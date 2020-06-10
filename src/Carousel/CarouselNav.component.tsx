@@ -9,16 +9,21 @@ const CarouselNav: FC<CarouselNavProps> = ({
   handleNavClick,
   className = '',
   activeClassName = '',
+  prevButton,
+  nextButton,
 }) => {
+  const PrevButton = prevButton || (props => <button {...props} />);
+  const NextButton = nextButton || (props => <button {...props} />);
+
   return (
     <nav className={`${className} ${styles.nav}`}>
-      <button
+      <PrevButton
         title="Previous slide."
         type="button"
         onClick={() => handleNavClick({action: 'prev'})}
       >
         Prev
-      </button>
+      </PrevButton>
       <ul>
         {slides.map(({uuid}, index) => (
           <li
@@ -31,13 +36,13 @@ const CarouselNav: FC<CarouselNavProps> = ({
           />
         ))}
       </ul>
-      <button
+      <NextButton
         title="Next slide."
         type="button"
         onClick={() => handleNavClick({action: 'next'})}
       >
         Next
-      </button>
+      </NextButton>
     </nav>
   );
 };

@@ -2,6 +2,8 @@ import faker from 'faker/locale/en_GB';
 import React, {FC} from 'react';
 import {useValue} from 'react-cosmos/fixture';
 
+import {ReactComponent as PrevIcon} from './assets/chevron-left.svg';
+import {ReactComponent as NextIcon} from './assets/chevron-right.svg';
 import {SlideContent, SlideImage} from './Carousel';
 import styles from './carousel-fixture.module.scss';
 import Carousel from './Carousel/Carousel.component';
@@ -74,6 +76,29 @@ const NoAutoPlayCarousel: FC = () => {
     />
   );
 };
+const CustomArrowCarousel: FC = () => {
+  const [props] = useValue('Carousel Props', {
+    defaultValue: contentDefaultValue,
+  });
+
+  return (
+    <Carousel
+      {...props}
+      navClassName={styles.customArrowsNav}
+      activeClassName={styles.active}
+      prevButton={props => (
+        <button {...props} className={styles.buttons}>
+          <PrevIcon />
+        </button>
+      )}
+      nextButton={props => (
+        <button {...props} className={styles.buttons}>
+          <NextIcon />
+        </button>
+      )}
+    />
+  );
+};
 
 function generateBlankSlides() {
   const numberOfSlides = faker.random.number({min: 2, max: 10});
@@ -122,4 +147,5 @@ export default {
   'Content Carousel': ContentCarousel,
   'Carousel No Nav': NoNavCarousel,
   'Carousel No AutoPlay': NoAutoPlayCarousel,
+  'Carousel Custom Arrows': CustomArrowCarousel,
 };
