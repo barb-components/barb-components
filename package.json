@@ -38,15 +38,9 @@
     "url": "git://github.com/barb-components/barb-components.git"
   },
   "keywords": [
-    "Google Typescript Style",
     "React",
-    "Component",
-    "Library",
-    "Rollup",
-    "Typescript",
-    "Sass",
-    "Sass Modules",
-    "Cosmos"
+    "Hooks",
+    "Carousel"
   ],
   "author": "Andy Weir <andy@ocean-internet.co.uk>",
   "license": "MIT",
