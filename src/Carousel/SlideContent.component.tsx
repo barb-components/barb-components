@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 
-import {SlideContentProps} from './carousel.types';
-import styles from './slide-content.module.scss';
-import Image from './SlideImage.component';
+import {SlideImage} from './index';
+import {preventOrphans, SlideContentProps, truncateString} from './lib';
+import styles from './styles/slide-content.module.scss';
 
 const SlideContent: FC<SlideContentProps> = ({
   title,
@@ -14,9 +14,9 @@ const SlideContent: FC<SlideContentProps> = ({
   <>
     <section className={`${styles.content} ${contentClassName}`}>
       <h1>{title}</h1>
-      <p>{text}</p>
+      <p>{preventOrphans(truncateString(text, 100))}</p>
     </section>
-    <Image
+    <SlideImage
       src={image}
       className={`${styles.image} ${imageClassName}`}
       alt={title}

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
-import styles from './carousel-nav.module.scss';
-import {CarouselNavProps} from './carousel.types';
+import {CarouselNavProps} from './lib';
+import styles from './styles/carousel-nav.module.scss';
 
 const CarouselNav: FC<CarouselNavProps> = ({
   slides,
@@ -20,7 +20,7 @@ const CarouselNav: FC<CarouselNavProps> = ({
       <PrevButton
         title="Previous slide."
         type="button"
-        onClick={() => handleNavClick({action: 'prev'})}
+        onClick={() => handleNavClick({type: 'prev'})}
       >
         Prev
       </PrevButton>
@@ -32,14 +32,14 @@ const CarouselNav: FC<CarouselNavProps> = ({
             className={
               index === current ? `${styles.active} ${activeClassName}` : ''
             }
-            onClick={() => handleNavClick({action: 'jump', next: index})}
+            onClick={() => handleNavClick({type: 'jump', next: index})}
           />
         ))}
       </ul>
       <NextButton
         title="Next slide."
         type="button"
-        onClick={() => handleNavClick({action: 'next'})}
+        onClick={() => handleNavClick({type: 'next'})}
       >
         Next
       </NextButton>

@@ -1,10 +1,8 @@
 import React, {FC, useCallback} from 'react';
 
-import styles from './carousel.module.scss';
-import {CarouselProps} from './carousel.types';
-import CarouselNav from './CarouselNav.component';
-import Slide from './Slide.component';
-import useCarousel from './useCarousel';
+import {CarouselNav, Slide} from './index';
+import {CarouselProps, useCarousel} from './lib';
+import styles from './styles/carousel.module.scss';
 
 const Carousel: FC<CarouselProps> = ({
   slides: _slides,
@@ -12,6 +10,7 @@ const Carousel: FC<CarouselProps> = ({
   showNav = true,
   prevButton,
   nextButton,
+  view = 'one',
   carouselClassName = '',
   trackClassName = '',
   slideClassName = '',
@@ -20,7 +19,7 @@ const Carousel: FC<CarouselProps> = ({
 }) => {
   const {
     slides,
-    dispatch,
+    dispatchAction,
     offset,
     bounce,
     slidingClass,
@@ -28,14 +27,17 @@ const Carousel: FC<CarouselProps> = ({
     current,
   } = useCarousel(_slides, autoPlay);
 
-  const handleNavClick = useCallback(action => dispatch(action), [dispatch]);
-  const setPlay = useCallback(play => dispatch({action: 'play', play}), [
-    dispatch,
+  const handleNavClick = useCallback(action => dispatchAction(action), [
+    dispatchAction,
+  ]);
+  const setPlay = useCallback(play => dispatchAction({type: 'play', play}), [
+    dispatchAction,
   ]);
 
   const draggingClass = offset ? styles.dragging : '';
   const bouncingClass = bounce ? styles.bouncing : '';
   const trackStyle = offset ? {transform: `translateX(${-offset}px)`} : {};
+  const viewClass = styles[`view${view}`];
 
   return (
     <section
@@ -44,12 +46,12 @@ const Carousel: FC<CarouselProps> = ({
       onMouseLeave={() => setPlay(true)}
     >
       <section
-        className={`${styles.track} ${slidingClass} ${draggingClass} ${bouncingClass} ${trackClassName}`}
+        className={`${styles.track} ${viewClass} ${slidingClass} ${draggingClass} ${bouncingClass} ${trackClassName}`}
         style={trackStyle}
         {...swipeHandlers}
       >
         {slides.map(({uuid, slide}) => (
-          <Slide key={uuid} className={slideClassName}>
+          <Slide key={uuid} view={view} className={slideClassName}>
             {slide}
           </Slide>
         ))}

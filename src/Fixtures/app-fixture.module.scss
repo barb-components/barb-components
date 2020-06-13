@@ -1,0 +1,88 @@
+@import '~normalize.css';
+@import '../scss/variables';
+@import '../scss/fluid-type';
+@import '../scss/moulten-leading';
+@import '../scss/typography';
+html {
+  > * {
+    box-sizing: border-box;
+  }
+  margin: 0;
+  background-color: $chalk;
+  @include fluid-type($min-width, $max-width, $min-font, $max-font);
+  @include molten-leading(
+    $min-width,
+    $max-width,
+    $min-font * $min-line-height,
+    $max-font * $max-line-height
+  );
+  color: $ink;
+  @include body-font;
+  @include body;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include heading-font;
+  @include heading;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+}
+a {
+  text-decoration: none;
+}
+.banner {
+  position: relative;
+  color: $brand;
+  @include heading-large;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-shadow: 0 4px 2px -2px rgba($ink, 0.2);
+  overflow: hidden;
+  @media (min-width: #{$max-width + 64px}) {
+    padding: 0;
+  }
+  svg {
+    order: 1;
+    height: 1.5em;
+    width: 1.5em;
+  }
+  h1 {
+    margin: 0;
+    order: 2;
+    line-height: 1.5;
+    &:before {
+      content: '\00a0';
+    }
+  }
+  p {
+    position: absolute;
+    @include body;
+    color: darken($lightAccent, 20%);
+    margin: 0;
+    bottom: 0;
+    right: 1rem;
+    display: none;
+    @media (min-width: $screen-tablet) {
+      display: block;
+    }
+    @media (min-width: #{$max-width + 64px}) {
+      right: 0;
+    }
+  }
+}
+
+.wrapper {
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: $max-width;
+}
