@@ -2,10 +2,6 @@
 @import '../scss/typography';
 
 .testComponent {
-  padding: 1rem;
-  margin: 1rem auto;
-  width: 768px;
-  max-width: calc(100% - 4rem);
   text-align: center;
   background-image: url('/assets/cherry-barb.svg');
   background-position: center center;

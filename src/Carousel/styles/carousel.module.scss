@@ -1,0 +1,52 @@
+$slide-time: 500ms;
+$bounce-time: 250ms;
+
+$slide-margin: 1rem;
+
+$bounce: transform $bounce-time cubic-bezier(0.68, -0.55, 0.265, 1.55);
+$slide: transform $slide-time ease;
+
+.carousel {
+  overflow: hidden;
+}
+.track {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &.viewone {
+    width: calc((100% * 5 / 1) + #{4 * $slide-margin});
+    margin: 0 calc(-200% - #{2 * $slide-margin});
+  }
+  &.viewtwo {
+    width: calc((100% * 5 / 2) + #{4 * $slide-margin});
+    margin: 0 calc(-75% - #{2 * $slide-margin});
+  }
+  &.viewthree {
+    width: calc((500% / 3) + #{$slide-margin/2});
+    margin: 0 calc((-500% / 3 / 5) - #{$slide-margin/4});
+  }
+
+  &.dragging {
+    user-select: none;
+  }
+
+  &.bouncing {
+    transition: $bounce;
+  }
+
+  &.slide {
+    &.forwards,
+    &.backwards {
+      transition: $slide;
+    }
+  }
+
+  &.backwards {
+    transform: translateX(calc((100% + #{2 * $slide-margin}) / 5));
+  }
+
+  &.forwards {
+    transform: translateX(calc((-100% - #{2 * $slide-margin}) / 5));
+  }
+}

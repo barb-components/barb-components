@@ -1,24 +1,31 @@
-import {ButtonHTMLAttributes, FC, ReactNode} from 'react';
+import {
+  ButtonHTMLAttributes,
+  Dispatch,
+  FC,
+  HTMLAttributes,
+  ReactNode,
+} from 'react';
+import {EventData} from 'react-swipeable';
 export type CarouselSlideProps = {
   uuid: string;
   slide: ReactNode;
 };
+export type CarouselView = 'one' | 'two' | 'three';
 export type CarouselProps = {
   slides: CarouselSlideProps[];
   autoPlay?: boolean;
   showNav?: boolean;
   prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
   nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+  view?: CarouselView;
   carouselClassName?: string;
   trackClassName?: string;
   slideClassName?: string;
   navClassName?: string;
   activeClassName?: string;
 };
-export type SlideProps = {
-  image: string;
-  title: string;
-  text?: string;
+export type SlideProps = HTMLAttributes<HTMLElement> & {
+  view?: 'one' | 'two' | 'three';
 };
 export type CarouselState = {
   current: number;
@@ -29,7 +36,7 @@ export type CarouselState = {
   play: boolean;
 };
 export type CarouselAction = {
-  action: 'prev' | 'next' | 'jump' | 'play';
+  type: 'prev' | 'next' | 'jump' | 'play';
   next?: number;
   play?: boolean;
 };
@@ -54,3 +61,9 @@ export type CarouselNavProps = {
   prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
   nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
 };
+export type HandleSwipeProps = (props: {
+  eventData: EventData;
+  offset: number;
+  dispatchAction: Dispatch<CarouselAction>;
+  dispatchState: Dispatch<Partial<CarouselState>>;
+}) => void;

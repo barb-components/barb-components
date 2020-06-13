@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 
+import TestComponent from '../TestComponent/TestComponent';
 import AppFixture from './AppFixture';
-import TestComponent from './TestComponent/TestComponent';
 
 export default {
   'Default Theme': (): ReactElement => (
