@@ -38,6 +38,9 @@ const Carousel: FC<CarouselProps> = ({
   const bouncingClass = bounce ? styles.bouncing : '';
   const trackStyle = offset ? {transform: `translateX(${-offset}px)`} : {};
   const viewClass = styles[`view${view}`];
+  const jumpClass = slides.length === 6 ? styles.jump : '';
+
+  console.log({slides: slides.length, jump: !!jumpClass});
 
   return (
     <section
@@ -46,12 +49,17 @@ const Carousel: FC<CarouselProps> = ({
       onMouseLeave={() => setPlay(true)}
     >
       <section
-        className={`${styles.track} ${viewClass} ${slidingClass} ${draggingClass} ${bouncingClass} ${trackClassName}`}
+        className={`${styles.track} ${viewClass} ${jumpClass} ${slidingClass} ${draggingClass} ${bouncingClass} ${trackClassName}`}
         style={trackStyle}
         {...swipeHandlers}
       >
         {slides.map(({uuid, slide}) => (
-          <Slide key={uuid} view={view} className={slideClassName}>
+          <Slide
+            key={uuid}
+            view={view}
+            className={slideClassName}
+            jump={!!jumpClass}
+          >
             {slide}
           </Slide>
         ))}

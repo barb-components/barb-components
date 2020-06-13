@@ -2,11 +2,11 @@ import {CarouselSlideProps} from './types';
 
 export type GetSlides = (props: {
   index: number;
-  length: number;
   slides: CarouselSlideProps[];
 }) => CarouselSlideProps[];
 
-const getSlides: GetSlides = ({index, length, slides}) => {
+const getSlides: GetSlides = ({index, slides}) => {
+  const length = slides.length;
   const firstSlide = (length + index - 2) % length;
   const prevSlide = (length + index - 1) % length;
   const currSlide = index;
@@ -21,9 +21,9 @@ const getSlides: GetSlides = ({index, length, slides}) => {
     slides[lastSlide],
   ];
 
-  return newSlides.map((slide, index) => ({
-    ...slide,
-    uuid: length > 4 ? slide.uuid : `${index}-${slide.uuid}`,
+  return newSlides.map(({uuid, slide}, index) => ({
+    uuid: length > 4 ? uuid : `${index}-${uuid}`,
+    slide,
   }));
 };
 

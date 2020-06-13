@@ -147,20 +147,20 @@ const CustomArrowCarousel: FC = () => {
 };
 
 function generateBlankSlides() {
-  const numberOfSlides = faker.random.number({min: 2, max: 10});
+  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
   return [...Array(numberOfSlides)].map((_, index) => ({
     uuid: faker.random.uuid(),
     slide: <span>{index + 1}</span>,
   }));
 }
 function generateImageSlides() {
-  const numberOfSlides = faker.random.number({min: 2, max: 10});
+  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
   return [...Array(numberOfSlides)].map<CarouselSlideProps>((v, k) =>
     generateImageSlide(k)
   );
 }
 function generateContentSlides() {
-  const numberOfSlides = faker.random.number({min: 2, max: 10});
+  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
   return [...Array(numberOfSlides)].map<CarouselSlideProps>((v, k) =>
     generateContentSlide(k)
   );

@@ -35,12 +35,10 @@ export type UseCarousel = (
 };
 
 const useCarousel: UseCarousel = (allSlides, autoPlay) => {
-  const length = useMemo(() => allSlides.length, [allSlides]);
-
   // Make Slides
   const makeSlides = useCallback(
-    index => getSlides({index, length, slides: allSlides}),
-    [allSlides, length]
+    index => getSlides({index, slides: allSlides}),
+    [allSlides]
   );
 
   // Set State
@@ -71,9 +69,8 @@ const useCarousel: UseCarousel = (allSlides, autoPlay) => {
   const [next, dispatchAction] = useReducer<Reducer<number, CarouselAction>>(
     (last, action) =>
       nextSlideReducer({
-        lastIndex: last,
+        oldIndex: last,
         currentIndex: current,
-        length,
         action,
         allSlides,
         carouselSlides,
@@ -84,8 +81,15 @@ const useCarousel: UseCarousel = (allSlides, autoPlay) => {
 
   // Navigation Effect
   useEffect(
-    () => navigationEffect({current, next, dispatchState, length, makeSlides}),
-    [length, current, next, makeSlides]
+    () =>
+      navigationEffect({
+        current,
+        next,
+        dispatchState,
+        length: allSlides.length,
+        makeSlides,
+      }),
+    [allSlides, current, next, makeSlides]
   );
 
   // Swipe Release Bounce Effect

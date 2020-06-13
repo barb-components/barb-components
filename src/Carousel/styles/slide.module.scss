@@ -2,22 +2,40 @@
 .slide {
   position: relative;
   overflow: hidden;
-  width: calc((100% - 4rem) / 5);
   height: 0;
   background-color: grey;
+  width: calc((100% - 4rem) / 5);
+  &.jump {
+    width: calc((100% - 5rem) / 6);
+  }
   &.viewthree {
     padding-bottom: calc((100% - 4rem) / 5 * 1);
+    &.jump {
+      padding-bottom: calc((100% - 5rem) / 6 * 1);
+    }
   }
   &.viewtwo {
     padding-bottom: calc((100% - 4rem) / 5 * 0.625);
+    &.jump {
+      padding-bottom: calc((100% - 5rem) / 6 * 0.625);
+    }
   }
   &.viewone {
     padding-bottom: calc((100% - 4rem) / 5 * 1);
+    &.jump {
+      padding-bottom: calc((100% - 5rem) / 6 * 1);
+    }
     @media (min-width: $screen-tablet) {
       padding-bottom: calc((100% - 4rem) / 5 * 0.5);
+      &.jump {
+        padding-bottom: calc((100% - 5rem) / 6 * 0.5);
+      }
     }
     @media (min-width: $screen-desktop) {
       padding-bottom: calc((100% - 4rem) / 5 * 0.375);
+      &.jump {
+        padding-bottom: calc((100% - 5rem) / 6 * 0.375);
+      }
     }
   }
 }

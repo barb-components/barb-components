@@ -26,6 +26,7 @@ export type CarouselProps = {
 };
 export type SlideProps = HTMLAttributes<HTMLElement> & {
   view?: 'one' | 'two' | 'three';
+  jump?: boolean;
 };
 export type CarouselState = {
   current: number;
