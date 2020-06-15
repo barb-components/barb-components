@@ -1,10 +1,9 @@
 import React, {FC, ImgHTMLAttributes} from 'react';
 
 import {SlideImageProps} from './lib';
-import styles from './styles/slide-image.module.scss';
+import styles from './styles/image.module.scss';
 
 const SlideImage: FC<SlideImageProps & ImgHTMLAttributes<HTMLImageElement>> = ({
-  ratio = '62.5%',
   className = '',
   alt = '',
   ...props

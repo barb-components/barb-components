@@ -1,20 +1,37 @@
 import {Dispatch} from 'react';
 
-import {CarouselAction} from './types';
+import {getIndex, GetStateProps} from './helpers';
+import {CarouselSlideProps} from './types';
 
-export type PlayEffectProps = (props: {
-  autoPlay: boolean;
+export type PlayEffect = (props: {
   play: boolean;
-  dispatchAction: Dispatch<CarouselAction>;
+  autoPlay: boolean;
+  isSliding: boolean;
+  show: number;
+  curr: number;
+  slides: CarouselSlideProps[];
+  pause: number;
+  dispatchState: Dispatch<Partial<GetStateProps>>;
 }) => void;
-
-const playEffect: PlayEffectProps = ({autoPlay, play, dispatchAction}) => {
-  if (!autoPlay || !play) {
+const playEffect: PlayEffect = ({
+  play,
+  autoPlay,
+  isSliding,
+  show,
+  curr,
+  slides,
+  pause,
+  dispatchState,
+}) => {
+  if (!play || !autoPlay || isSliding || slides.length <= show) {
     return;
   }
 
-  const id = setTimeout(() => dispatchAction({type: 'next'}), 3000);
-  return () => clearTimeout(id);
+  const timer = setTimeout(
+    () => dispatchState({next: getIndex({show, index: curr + 1, slides})}),
+    pause
+  );
+  return () => clearTimeout(timer);
 };
 
 export default playEffect;

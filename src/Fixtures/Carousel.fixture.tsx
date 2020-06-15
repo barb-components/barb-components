@@ -4,44 +4,59 @@ import {useValue} from 'react-cosmos/fixture';
 
 import {ReactComponent as PrevIcon} from '../assets/chevron-left.svg';
 import {ReactComponent as NextIcon} from '../assets/chevron-right.svg';
-import {Carousel, SlideContent, SlideImage} from '../Carousel';
-import {CarouselProps, CarouselSlideProps, CarouselView} from '../Carousel/lib';
+import {SlideContent, SlideImage} from '../Carousel';
+import Carousel from '../Carousel/Carousel.component';
+import {CarouselProps} from '../Carousel/lib';
 import AppFixture from './AppFixture';
-import styles from './carousel-fixture.module.scss';
+import styles from './carousel.module.scss';
 
+const getNumberOfSlides = () => faker.random.number({min: 2, max: 10});
 const blankDefaultValue: CarouselProps = {
+  show: 1,
+  ratio: 0.375,
   slides: generateBlankSlides(),
-  slideClassName: styles.blankCarouselSlide,
+};
+const imageDefaultValue: CarouselProps = {
+  show: 1,
+  ratio: 0.375,
+  slides: generateImageSlides(),
+};
+const contentDefaultValue: CarouselProps = {
+  show: 1,
+  ratio: 0.375,
+  slides: generateContentSlides(),
 };
 const BlankCarousel: FC = () => {
   const [props] = useValue('Carousel Props', {defaultValue: blankDefaultValue});
 
   return (
     <AppFixture>
-      <Carousel {...props} />
+      <Carousel
+        {...props}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.blankSlide}`}
+        navClassName={styles.nav}
+        activeClassName={styles.active}
+      />
     </AppFixture>
   );
 };
-
-const imageDefaultValue: CarouselProps = {
-  slides: generateImageSlides(),
-  slideClassName: styles.imageCarouselSlide,
-};
 const ImageCarousel: FC = () => {
-  const [props] = useValue('Carousel Props', {
-    defaultValue: imageDefaultValue,
-  });
+  const [props] = useValue('Carousel Props', {defaultValue: imageDefaultValue});
 
   return (
     <AppFixture>
-      <Carousel {...props} />
+      <Carousel
+        {...props}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide}`}
+        navClassName={styles.nav}
+        activeClassName={styles.active}
+      />
     </AppFixture>
   );
-};
-
-const contentDefaultValue: CarouselProps = {
-  slides: generateContentSlides(),
-  slideClassName: styles.contentSlide,
 };
 const ContentCarousel: FC = () => {
   const [props] = useValue('Carousel Props', {
@@ -52,36 +67,9 @@ const ContentCarousel: FC = () => {
     <AppFixture>
       <Carousel
         {...props}
-        navClassName={styles.nav}
-        activeClassName={styles.active}
-      />
-    </AppFixture>
-  );
-};
-const ViewTwoCarousel: FC = () => {
-  const [props] = useValue('Carousel Props', {
-    defaultValue: {...contentDefaultValue, view: 'two' as CarouselView},
-  });
-
-  return (
-    <AppFixture>
-      <Carousel
-        {...props}
-        navClassName={styles.nav}
-        activeClassName={styles.active}
-      />
-    </AppFixture>
-  );
-};
-const ViewThreeCarousel: FC = () => {
-  const [props] = useValue('Carousel Props', {
-    defaultValue: {...contentDefaultValue, view: 'three' as CarouselView},
-  });
-
-  return (
-    <AppFixture>
-      <Carousel
-        {...props}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
         navClassName={styles.nav}
         activeClassName={styles.active}
       />
@@ -97,9 +85,12 @@ const NoNavCarousel: FC = () => {
     <AppFixture>
       <Carousel
         {...props}
+        showNav={false}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
         navClassName={styles.nav}
         activeClassName={styles.active}
-        showNav={false}
       />
     </AppFixture>
   );
@@ -113,9 +104,12 @@ const NoAutoPlayCarousel: FC = () => {
     <AppFixture>
       <Carousel
         {...props}
+        autoPlay={false}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
         navClassName={styles.nav}
         activeClassName={styles.active}
-        autoPlay={false}
       />
     </AppFixture>
   );
@@ -129,8 +123,6 @@ const CustomArrowCarousel: FC = () => {
     <AppFixture>
       <Carousel
         {...props}
-        navClassName={styles.customArrowsNav}
-        activeClassName={styles.active}
         prevButton={props => (
           <button {...props} className={styles.buttons}>
             <PrevIcon />
@@ -141,56 +133,72 @@ const CustomArrowCarousel: FC = () => {
             <NextIcon />
           </button>
         )}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
+        navClassName={`${styles.nav} ${styles.customArrowsNav}`}
+        activeClassName={styles.active}
+      />
+    </AppFixture>
+  );
+};
+const ShowTwoCarousel: FC = () => {
+  const [props] = useValue('Carousel Props', {
+    defaultValue: {...contentDefaultValue, show: 2, ratio: 0.625},
+  });
+
+  return (
+    <AppFixture>
+      <Carousel
+        {...props}
+        prevButton={props => (
+          <button {...props} className={styles.buttons}>
+            <PrevIcon />
+          </button>
+        )}
+        nextButton={props => (
+          <button {...props} className={styles.buttons}>
+            <NextIcon />
+          </button>
+        )}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
+        navClassName={`${styles.nav} ${styles.customArrowsNav}`}
+        activeClassName={styles.active}
+      />
+    </AppFixture>
+  );
+};
+const ShowThreeCarousel: FC = () => {
+  const [props] = useValue('Carousel Props', {
+    defaultValue: {...contentDefaultValue, show: 3, ratio: 1},
+  });
+
+  return (
+    <AppFixture>
+      <Carousel
+        {...props}
+        prevButton={props => (
+          <button {...props} className={styles.buttons}>
+            <PrevIcon />
+          </button>
+        )}
+        nextButton={props => (
+          <button {...props} className={styles.buttons}>
+            <NextIcon />
+          </button>
+        )}
+        carouselClassName={styles.carousel}
+        trackClassName={styles.track}
+        slideClassName={`${styles.slide} ${styles.contentSlide}`}
+        navClassName={`${styles.nav} ${styles.customArrowsNav}`}
+        activeClassName={styles.active}
       />
     </AppFixture>
   );
 };
 
-function generateBlankSlides() {
-  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
-  return [...Array(numberOfSlides)].map((_, index) => ({
-    uuid: faker.random.uuid(),
-    slide: <span>{index + 1}</span>,
-  }));
-}
-function generateImageSlides() {
-  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
-  return [...Array(numberOfSlides)].map<CarouselSlideProps>((v, k) =>
-    generateImageSlide(k)
-  );
-}
-function generateContentSlides() {
-  const numberOfSlides = 10; //faker.random.number({min: 2, max: 10});
-  return [...Array(numberOfSlides)].map<CarouselSlideProps>((v, k) =>
-    generateContentSlide(k)
-  );
-}
-
-function generateImageSlide(k: number): CarouselSlideProps {
-  const props = {
-    src: `https://picsum.photos/id/${k + 1}/1024/640`,
-    alt: faker.company.catchPhrase(),
-  };
-
-  return {
-    uuid: faker.random.uuid(),
-    slide: <SlideImage className={styles.slideContent} {...props} />,
-  };
-}
-function generateContentSlide(k: number): CarouselSlideProps {
-  const props = {
-    image: `https://picsum.photos/id/${k + 1}/1024/640`,
-    title: faker.company.catchPhrase(),
-    text: faker.lorem.paragraph(),
-    contentClassName: styles.content,
-    imageClassName: styles.image,
-  };
-
-  return {
-    uuid: faker.random.uuid(),
-    slide: <SlideContent {...props} />,
-  };
-}
 export default {
   'Blank Carousel': BlankCarousel,
   'Image Carousel': ImageCarousel,
@@ -198,6 +206,47 @@ export default {
   'Carousel No Nav': NoNavCarousel,
   'Carousel No AutoPlay': NoAutoPlayCarousel,
   'Carousel Custom Arrows': CustomArrowCarousel,
-  'Carousel View Two': ViewTwoCarousel,
-  'Carousel View Three': ViewThreeCarousel,
+  'Carousel Show Two': ShowTwoCarousel,
+  'Carousel Show Three': ShowThreeCarousel,
 };
+
+function generateBlankSlides() {
+  const numberOfSlides = getNumberOfSlides();
+  return [...Array(numberOfSlides)].map((_, index) => ({
+    id: faker.random.uuid(),
+    slide: <span>{index + 1}</span>,
+  }));
+}
+function generateImageSlides() {
+  const numberOfSlides = getNumberOfSlides();
+  const offset = faker.random.number({min: 1, max: 10});
+  return [...Array(numberOfSlides)].map((_, index) => ({
+    id: faker.random.uuid(),
+    slide: (
+      <SlideImage
+        alt={faker.lorem.words()}
+        src={`http://lorempixel.com/400/200/technics/${
+          ((index + offset) % 10) + 1
+        }/`}
+      />
+    ),
+  }));
+}
+function generateContentSlides() {
+  const numberOfSlides = getNumberOfSlides();
+  const offset = faker.random.number({min: 1, max: 10});
+  return [...Array(numberOfSlides)].map((_, index) => ({
+    id: faker.random.uuid(),
+    slide: (
+      <SlideContent
+        imageClassName={styles.slideImage}
+        contentClassName={styles.slideContent}
+        title={faker.company.bsBuzz()}
+        text={faker.company.bs()}
+        image={`http://lorempixel.com/400/200/technics/${
+          ((index + offset) % 10) + 1
+        }/`}
+      />
+    ),
+  }));
+}

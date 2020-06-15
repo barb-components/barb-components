@@ -1,23 +1,19 @@
-import {
-  ButtonHTMLAttributes,
-  Dispatch,
-  FC,
-  HTMLAttributes,
-  ReactNode,
-} from 'react';
-import {EventData} from 'react-swipeable';
+import {ButtonHTMLAttributes, FC, HTMLAttributes, ReactNode} from 'react';
+
 export type CarouselSlideProps = {
-  uuid: string;
+  id: string;
   slide: ReactNode;
 };
-export type CarouselView = 'one' | 'two' | 'three';
 export type CarouselProps = {
   slides: CarouselSlideProps[];
+  duration?: number;
+  pause?: number;
+  ratio?: number;
   autoPlay?: boolean;
   showNav?: boolean;
   prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
   nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
-  view?: CarouselView;
+  show?: number;
   carouselClassName?: string;
   trackClassName?: string;
   slideClassName?: string;
@@ -25,21 +21,16 @@ export type CarouselProps = {
   activeClassName?: string;
 };
 export type SlideProps = HTMLAttributes<HTMLElement> & {
-  view?: 'one' | 'two' | 'three';
-  jump?: boolean;
+  slide: ReactNode;
 };
-export type CarouselState = {
-  current: number;
-  offset: number;
-  bounce: boolean;
+export type CarouselNavProps = {
   slides: CarouselSlideProps[];
-  slidingClass: string;
-  play: boolean;
-};
-export type CarouselAction = {
-  type: 'prev' | 'next' | 'jump' | 'play';
-  next?: number;
-  play?: boolean;
+  curr: number;
+  handleClick: (index: number) => void;
+  className?: string;
+  activeClassName: string;
+  prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+  nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
 };
 export type SlideContentProps = {
   title: string;
@@ -53,18 +44,7 @@ export type SlideImageProps = {
   ratio?: string;
   className?: string;
 };
-export type CarouselNavProps = {
-  slides: CarouselSlideProps[];
-  current: number;
-  handleNavClick: (action: CarouselAction) => void;
-  className?: string;
-  activeClassName: string;
-  prevButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
-  nextButton?: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+export type CarouselState = {
+  curr: number;
+  next: number;
 };
-export type HandleSwipeProps = (props: {
-  eventData: EventData;
-  offset: number;
-  dispatchAction: Dispatch<CarouselAction>;
-  dispatchState: Dispatch<Partial<CarouselState>>;
-}) => void;

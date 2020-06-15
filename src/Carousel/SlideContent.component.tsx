@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 
+import {preventOrphans, truncateString} from '../lib';
 import {SlideImage} from './index';
-import {preventOrphans, SlideContentProps, truncateString} from './lib';
-import styles from './styles/slide-content.module.scss';
+import {SlideContentProps} from './lib';
+import styles from './styles/content.module.scss';
 
 const SlideContent: FC<SlideContentProps> = ({
   title,

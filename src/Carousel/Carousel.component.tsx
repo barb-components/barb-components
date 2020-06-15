@@ -1,76 +1,99 @@
 import React, {FC, useCallback} from 'react';
 
 import {CarouselNav, Slide} from './index';
-import {CarouselProps, useCarousel} from './lib';
+import {CarouselProps, getIndex, useCarousel} from './lib';
 import styles from './styles/carousel.module.scss';
 
 const Carousel: FC<CarouselProps> = ({
-  slides: _slides,
+  show = 2,
+  duration = 500,
+  pause = 5000,
+  ratio = 0.625,
+  slides = [],
   autoPlay = true,
   showNav = true,
   prevButton,
   nextButton,
-  view = 'one',
   carouselClassName = '',
   trackClassName = '',
   slideClassName = '',
   navClassName = '',
   activeClassName = '',
 }) => {
+  const slidesLength = slides.length;
+  const isCarousel = slidesLength > show;
+
   const {
+    carousel,
+    margin,
+    transform,
+    curr,
+    next,
+    setNext,
+    setPlay,
+  } = useCarousel({
+    show,
+    duration,
+    pause,
     slides,
-    dispatchAction,
-    offset,
-    bounce,
-    slidingClass,
-    swipeHandlers,
-    current,
-  } = useCarousel(_slides, autoPlay);
+    autoPlay: isCarousel && autoPlay,
+  });
 
-  const handleNavClick = useCallback(action => dispatchAction(action), [
-    dispatchAction,
-  ]);
-  const setPlay = useCallback(play => dispatchAction({type: 'play', play}), [
-    dispatchAction,
-  ]);
+  const isSliding = curr !== next;
+  const handleNavClick = useCallback(
+    index => {
+      if (isSliding) {
+        return;
+      }
+      const nextIndex = getIndex({show, index, slides});
+      setNext(nextIndex);
+    },
+    [isSliding, show, slides]
+  );
 
-  const draggingClass = offset ? styles.dragging : '';
-  const bouncingClass = bounce ? styles.bouncing : '';
-  const trackStyle = offset ? {transform: `translateX(${-offset}px)`} : {};
-  const viewClass = styles[`view${view}`];
-  const jumpClass = slides.length === 6 ? styles.jump : '';
+  if (!slidesLength || show < 1 || !carousel) {
+    return null;
+  }
 
-  console.log({slides: slides.length, jump: !!jumpClass});
+  const trackStyle = {
+    width: `calc(${carousel.length * 100}% / ${show})`,
+    marginLeft: isCarousel ? `calc(${margin * 100}% / ${show})` : 0,
+    transform: isCarousel
+      ? `translateX(calc(${transform * 100}% / ${carousel.length}))`
+      : 'none',
+    transitionDuration: `${curr !== next ? duration : 0}ms`,
+  };
+  const slideStyle = {
+    width: `calc(100% / ${carousel.length})`,
+    paddingBottom: `calc(100% / ${carousel.length} * ${ratio})`,
+  };
 
   return (
     <section
-      className={`${styles.carousel} ${carouselClassName}`}
-      onMouseEnter={() => setPlay(false)}
-      onMouseLeave={() => setPlay(true)}
+      className={`carousel ${styles.carousel} ${carouselClassName}`}
+      onMouseEnter={() => autoPlay && setPlay(false)}
+      onMouseLeave={() => autoPlay && setPlay(true)}
     >
-      <section
-        className={`${styles.track} ${viewClass} ${jumpClass} ${slidingClass} ${draggingClass} ${bouncingClass} ${trackClassName}`}
+      <div
         style={trackStyle}
-        {...swipeHandlers}
+        className={`track ${styles.track} ${trackClassName}`}
       >
-        {slides.map(({uuid, slide}) => (
+        {carousel.map(({id, slide}) => (
           <Slide
-            key={uuid}
-            view={view}
+            key={id}
+            style={slideStyle}
             className={slideClassName}
-            jump={!!jumpClass}
-          >
-            {slide}
-          </Slide>
+            slide={slide}
+          />
         ))}
-      </section>
-      {showNav && (
+      </div>
+      {showNav && isCarousel && (
         <CarouselNav
-          slides={_slides}
-          current={current}
+          slides={slides}
+          curr={curr}
           prevButton={prevButton}
           nextButton={nextButton}
-          handleNavClick={handleNavClick}
+          handleClick={handleNavClick}
           className={navClassName}
           activeClassName={activeClassName}
         />

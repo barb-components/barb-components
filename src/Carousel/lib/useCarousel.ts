@@ -1,139 +1,96 @@
 import {
   Dispatch,
-  Reducer,
+  SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useReducer,
+  useState,
 } from 'react';
-import {SwipeableHandlers, useSwipeable} from 'react-swipeable';
 
 import {
-  bounceEffect,
-  getSlides,
-  handleSwipeLeft,
-  handleSwipeRight,
-  navigationEffect,
-  nextSlideReducer,
-  playEffect,
-  stateReducer,
-} from './index';
-import {CarouselAction, CarouselSlideProps, CarouselState} from './types';
+  getCarousel,
+  getIsForwards,
+  getMargin,
+  getState,
+  GetStateProps,
+  getTransform,
+} from './helpers';
+import {CarouselState, playEffect, slideEffect} from './index';
+import {CarouselSlideProps} from './types';
 
-export type UseCarousel = (
-  allSlides: CarouselSlideProps[],
-  autoPlay: boolean
-) => {
-  current: number;
-  offset: number;
+export type UseCarouselProps = {
+  show: number;
   slides: CarouselSlideProps[];
-  dispatchAction: Dispatch<CarouselAction>;
-  dispatchState: Dispatch<Partial<CarouselState>>;
-  bounce: boolean;
-  slidingClass: string;
-  swipeHandlers: SwipeableHandlers;
+  duration: number;
+  pause: number;
+  autoPlay: boolean;
 };
-
-const useCarousel: UseCarousel = (allSlides, autoPlay) => {
-  // Make Slides
-  const makeSlides = useCallback(
-    index => getSlides({index, slides: allSlides}),
-    [allSlides]
-  );
-
-  // Set State
+export type UseCarouselReturn = CarouselState & {
+  carousel: CarouselSlideProps[];
+  margin: number;
+  transform: number;
+  setNext: Dispatch<SetStateAction<number>>;
+  setPlay: Dispatch<SetStateAction<boolean>>;
+};
+export type UseCarousel = (props: UseCarouselProps) => UseCarouselReturn;
+const useCarousel: UseCarousel = ({
+  show,
+  slides,
+  duration,
+  pause,
+  autoPlay,
+}) => {
   const initialState = useMemo(
-    () => ({
-      current: 0,
-      offset: 0,
-      bounce: false,
-      slides: makeSlides(0),
-      slidingClass: '',
-      play: true,
-    }),
-    [makeSlides]
-  );
-  const [state, dispatchState] = useReducer<
-    Reducer<CarouselState, Partial<CarouselState>>
-  >(stateReducer, initialState);
-  const {
-    current,
-    offset,
-    slides: carouselSlides,
-    bounce,
-    slidingClass,
-    play,
-  } = state;
-
-  // Calculate Next Slide
-  const [next, dispatchAction] = useReducer<Reducer<number, CarouselAction>>(
-    (last, action) =>
-      nextSlideReducer({
-        oldIndex: last,
-        currentIndex: current,
-        action,
-        allSlides,
-        carouselSlides,
-        dispatchState,
-      }),
-    current
+    () => getState({show, slides, curr: 0, next: 0}),
+    []
   );
 
-  // Navigation Effect
+  const [play, setPlay] = useState(autoPlay);
+  const [state, dispatchState] = useReducer(
+    (oldState: CarouselState, action: Partial<GetStateProps>) =>
+      getState({...oldState, show, slides, ...action}),
+    initialState
+  );
+
+  const {curr, next} = state;
+  const isSliding = curr !== next;
+
+  useEffect(() => slideEffect({curr, next, duration, dispatchState}), [
+    curr,
+    next,
+    duration,
+  ]);
+
+  const setNext = useCallback(index => dispatchState({next: index}), [
+    dispatchState,
+  ]);
+
   useEffect(
     () =>
-      navigationEffect({
-        current,
-        next,
+      playEffect({
+        play,
+        autoPlay,
+        isSliding,
+        show,
+        curr,
+        slides,
+        pause,
         dispatchState,
-        length: allSlides.length,
-        makeSlides,
       }),
-    [allSlides, current, next, makeSlides]
+    [play, autoPlay, isSliding, show, curr, slides, pause]
   );
 
-  // Swipe Release Bounce Effect
-  useEffect(() => bounceEffect({bounce, dispatchState}), [bounce]);
-
-  // Auto Play Effect
-  useEffect(() => playEffect({autoPlay, play, dispatchAction}), [
-    current,
-    autoPlay,
-    play,
-  ]);
-
-  const onSwiping = useCallback(({deltaX}) => dispatchState({offset: deltaX}), [
-    dispatchState,
-  ]);
-  const onSwipedLeft = useCallback(
-    eventData =>
-      handleSwipeLeft({eventData, offset, dispatchAction, dispatchState}),
-    [offset]
-  );
-  const onSwipedRight = useCallback(
-    eventData =>
-      handleSwipeRight({eventData, offset, dispatchAction, dispatchState}),
-    [offset]
-  );
-
-  // Swipe Handler
-  const swipeHandlers = useSwipeable({
-    onSwiping,
-    onSwipedLeft,
-    onSwipedRight,
-    trackMouse: true,
-    trackTouch: true,
-  });
+  const isForwards = getIsForwards({curr, next, slides});
+  const carousel = getCarousel({show, slides, curr, next});
 
   return {
-    current,
-    offset,
-    slides: carouselSlides,
-    dispatchAction,
-    dispatchState,
-    bounce,
-    slidingClass,
-    swipeHandlers,
+    ...state,
+    carousel,
+    margin: getMargin({show, isForwards, carousel}),
+    transform: getTransform({show, isForwards, carousel}),
+    setNext,
+    setPlay,
   };
 };
 export default useCarousel;
