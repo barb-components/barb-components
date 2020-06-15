@@ -219,22 +219,18 @@ function generateBlankSlides() {
 }
 function generateImageSlides() {
   const numberOfSlides = getNumberOfSlides();
-  const offset = faker.random.number({min: 1, max: 10});
   return [...Array(numberOfSlides)].map((_, index) => ({
     id: faker.random.uuid(),
     slide: (
       <SlideImage
         alt={faker.lorem.words()}
-        src={`http://lorempixel.com/400/200/technics/${
-          ((index + offset) % 10) + 1
-        }/`}
+        src={`https://loremflickr.com/320/240?lock=${faker.random.number()}`}
       />
     ),
   }));
 }
 function generateContentSlides() {
   const numberOfSlides = getNumberOfSlides();
-  const offset = faker.random.number({min: 1, max: 10});
   return [...Array(numberOfSlides)].map((_, index) => ({
     id: faker.random.uuid(),
     slide: (
@@ -243,9 +239,7 @@ function generateContentSlides() {
         contentClassName={styles.slideContent}
         title={faker.company.bsBuzz()}
         text={faker.company.bs()}
-        image={`http://lorempixel.com/400/200/technics/${
-          ((index + offset) % 10) + 1
-        }/`}
+        image={`https://loremflickr.com/320/240?lock=${faker.random.number()}`}
       />
     ),
   }));

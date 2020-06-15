@@ -43,7 +43,7 @@ const useCarousel: UseCarousel = ({
 }) => {
   const initialState = useMemo(
     () => getState({show, slides, curr: 0, next: 0}),
-    []
+    [show, slides]
   );
 
   const [play, setPlay] = useState(autoPlay);

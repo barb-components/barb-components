@@ -48,7 +48,7 @@ const Carousel: FC<CarouselProps> = ({
       const nextIndex = getIndex({show, index, slides});
       setNext(nextIndex);
     },
-    [isSliding, show, slides]
+    [isSliding, show, slides, setNext]
   );
 
   if (!slidesLength || show < 1 || !carousel) {
